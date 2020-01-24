@@ -1,0 +1,46 @@
+//All connected components in an undirected graph
+import java.util.*;
+public class Solution 
+{
+    public static void main(String[] args) 
+    {
+        Scanner s = new Scanner(System.in);
+        int V = s.nextInt();
+        int E = s.nextInt();
+        int arr[][]=new int[V][V];
+        for(int i=0;i<E;i++){
+            int fv=s.nextInt();
+            int sv=s.nextInt();
+            arr[fv][sv]=1;
+            arr[sv][fv]=1;
+        }
+        print(arr);
+    }
+    public static void print(int arr[][])
+    {
+        boolean visited[]=new boolean [arr.length];
+        ArrayList<Integer> path = new ArrayList<Integer>(); 
+        for(int i=0;i<arr.length;i++){
+            if(!visited[i]){
+                printhelper(arr,i, visited,path);
+                java.util.Collections.sort(path);
+                for(Integer x: path){
+                    System.out.print(x+" ");
+                }
+                System.out.println();
+                path = new ArrayList<Integer>(); 
+            }  
+        }
+    }
+    public static void printhelper(int arr[][],int si,boolean visited[],ArrayList<Integer>path)
+    {
+        visited[si]=true;
+        path.add(si);
+        for(int i=0;i<arr.length;i++){
+            if(!visited[i] && arr[si][i]==1){
+                printhelper(arr,i,visited,path);
+                visited[i]=true;
+            }
+        }
+    }
+}
